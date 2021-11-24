@@ -16,7 +16,7 @@ public class RenameMe implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     public RenameMe() {
     }
 
@@ -33,7 +33,7 @@ public class RenameMe implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     // TODO, delete this class, or rename to an Entity class that makes sense for what you are about to do
     // Delete EVERYTHING below if you decide to use this class, it's dummy data used for the initial demo
     private String dummyStr1;
@@ -59,9 +59,6 @@ public class RenameMe implements Serializable {
     public void setDummyStr2(String dummyStr2) {
         this.dummyStr2 = dummyStr2;
     }
-    
-    
-    
 
-   
+
 }

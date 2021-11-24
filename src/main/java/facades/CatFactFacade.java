@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.AnimalFactDTO;
 import dtos.CatFactDTO;
 import utils.HttpUtils;
 
@@ -23,11 +24,9 @@ public class CatFactFacade {
         return instance;
     }
 
-    public CatFactDTO getCatFact() throws ExecutionException, InterruptedException {
+    public AnimalFactDTO getCatFact() throws ExecutionException, InterruptedException {
 
-        CatFactDTO catFactDTO = (CatFactDTO) HttpUtils.FetchSwitch("catFactDTO").get(0);
-
-        return catFactDTO;
+        return HttpUtils.FetchSwitch("catFactDTO");
     }
 
 }

@@ -1,8 +1,12 @@
 package utils;
 
 import com.google.gson.Gson;
+import dtos.AnimalFactDTO;
+import dtos.AnimalTypeDTO;
 import dtos.CatFactDTO;
 import dtos.RenameMeDTO;
+import entities.AnimalFact;
+import entities.AnimalType;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -38,7 +42,7 @@ public class HttpUtils {
 
     // this Method acts as a switch for the different fetches we want to make, it can return a list containing any type of DTO.
 
-    public static List<?> FetchSwitch(String DTO) throws ExecutionException, InterruptedException {
+    public static AnimalFactDTO FetchSwitch(String DTO) throws ExecutionException, InterruptedException {
 
         if (DTO != null) {
             switch (DTO) {
@@ -46,15 +50,9 @@ public class HttpUtils {
                 // use the first case in the switch as a template for additional switches you may want to add.
 
                 case "catFactDTO":
-                    List<CatFactDTO> catFactDTOArrayList = new ArrayList<>();
-                    catFactDTOArrayList.add(catFactDTOFetch());
-                    return catFactDTOArrayList;
 
+                    return catFactDTOFetch();
 
-                case "RenameMeDTO":
-                    List<RenameMeDTO> list1 = null;
-                    list1.add(new RenameMeDTO("dummy", "dummy"));
-                    return list1;
 
             }
         }
@@ -64,7 +62,7 @@ public class HttpUtils {
 
     // down here you will make the methods for the individual fetch methods that will be called in the switch.
 
-    public static CatFactDTO catFactDTOFetch() throws ExecutionException, InterruptedException {
+    public static AnimalFactDTO catFactDTOFetch() throws ExecutionException, InterruptedException {
         ExecutorService es = Executors.newCachedThreadPool();
 
         // Create parallel fetches here. by following the template below
@@ -76,8 +74,14 @@ public class HttpUtils {
 
 
         CatFactDTO catFactDTO = new CatFactDTO(catFactDTOFuture.get());
+        AnimalType cat = new AnimalType();
 
-        return catFactDTO;
+        AnimalTypeDTO typeDTO = new AnimalTypeDTO("cat");
+
+        AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, catFactDTO.getFact());
+
+
+        return animalFactDTO;
     }
 
 
