@@ -7,7 +7,9 @@ import dtos.CatFactDTO;
 import dtos.RenameMeDTO;
 import entities.AnimalFact;
 import entities.AnimalType;
+import facades.AnimalTypeFacade;
 
+import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -21,6 +23,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class HttpUtils {
+
 
     public static String fetchData(String _url) throws MalformedURLException, IOException {
         URL url = new URL(_url);
@@ -73,8 +76,10 @@ public class HttpUtils {
         );
 
 
+
+
+
         CatFactDTO catFactDTO = new CatFactDTO(catFactDTOFuture.get());
-        AnimalType cat = new AnimalType();
 
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("cat");
 

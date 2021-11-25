@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 public class CatFactFacade {
 
     private static CatFactFacade instance;
+    private static AnimalTypeFacade animalTypeFacade;
     private static EntityManagerFactory emf;
 
     private CatFactFacade() {
@@ -28,5 +29,7 @@ public class CatFactFacade {
 
         return HttpUtils.FetchSwitch("catFactDTO");
     }
+
+
 
 }
