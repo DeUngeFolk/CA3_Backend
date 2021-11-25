@@ -1,5 +1,7 @@
 package rest;
 
+import utils.SetupTestUsers;
+
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
@@ -21,6 +23,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(cors.CorsFilter.class);
+        resources.add(SetupTestUsers.class);
         resources.add(rest.CatFactResource.class);
         resources.add(rest.DogFactResource.class);
         resources.add(errorhandling.API_ExceptionMapper.class);
