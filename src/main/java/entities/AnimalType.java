@@ -26,24 +26,25 @@ public class AnimalType implements Serializable {
     }
 
     // edit below here.
-    private String Type;
+    private String type;
+
 
 
     public AnimalType(Long id, String type) {
         this.id = id;
-        Type = type;
+        type = type;
     }
 
     public AnimalType(String type) {
-        Type = type;
+        type = type;
     }
 
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        type = type;
     }
 }
