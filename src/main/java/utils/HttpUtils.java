@@ -1,10 +1,7 @@
 package utils;
 
 import com.google.gson.Gson;
-import dtos.AnimalFactDTO;
-import dtos.AnimalTypeDTO;
-import dtos.CatFactDTO;
-import dtos.RenameMeDTO;
+import dtos.*;
 import entities.AnimalFact;
 import entities.AnimalType;
 import facades.AnimalTypeFacade;
@@ -56,6 +53,8 @@ public class HttpUtils {
 
                     return catFactDTOFetch();
 
+                case "dogFactDTO":
+                    return dogFactDTOFetch();
 
             }
         }
@@ -76,15 +75,30 @@ public class HttpUtils {
         );
 
 
-
-
-
         CatFactDTO catFactDTO = new CatFactDTO(catFactDTOFuture.get());
 
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("cat");
 
         AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, catFactDTO.getFact());
 
+
+        return animalFactDTO;
+    }
+
+    public static AnimalFactDTO dogFactDTOFetch() throws ExecutionException, InterruptedException {
+        ExecutorService es = Executors.newCachedThreadPool();
+
+        Future<DogFactDTO> dogFactDTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://dog-api.kinduff.com/api/facts"), DogFactDTO.class)
+
+
+        );
+
+        DogFactDTO dogFactDTO = new DogFactDTO(dogFactDTOFuture.get());
+
+        AnimalTypeDTO typeDTO = new AnimalTypeDTO("dog");
+
+        AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, dogFactDTO.getDogFact());
 
         return animalFactDTO;
     }
