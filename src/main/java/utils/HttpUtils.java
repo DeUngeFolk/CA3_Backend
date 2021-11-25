@@ -43,6 +43,7 @@ public class HttpUtils {
 
     private static Gson gson = new Gson();
 
+
     // this Method acts as a switch for the different fetches we want to make, it can return a list containing any type of DTO.
 
     public static AnimalFactDTO FetchSwitch(String DTO) throws ExecutionException, InterruptedException {
