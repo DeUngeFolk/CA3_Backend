@@ -32,7 +32,7 @@ public class AnimalType implements Serializable {
 
     public AnimalType(Long id, String type) {
         this.id = id;
-        type = type;
+        this.type = type;
     }
 
     public AnimalType(String type) {
