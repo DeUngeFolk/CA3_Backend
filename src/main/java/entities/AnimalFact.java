@@ -36,8 +36,8 @@ public class AnimalFact implements Serializable {
     @ManyToOne
     private AnimalType animalType;
 
-    @ManyToMany(mappedBy = "factHistory")
-    private List<User> userList;
+    @ManyToOne
+    private User user;
 
     public AnimalFact(String fact) {
         this.fact = fact;
@@ -74,11 +74,11 @@ public class AnimalFact implements Serializable {
         this.animalType = animalType;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
