@@ -36,8 +36,9 @@ public class AnimalFact implements Serializable {
     @ManyToOne
     private AnimalType animalType;
 
-    @ManyToOne
-    private User user;
+
+
+
 
     public AnimalFact(String fact) {
         this.fact = fact;
@@ -74,11 +75,5 @@ public class AnimalFact implements Serializable {
         this.animalType = animalType;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

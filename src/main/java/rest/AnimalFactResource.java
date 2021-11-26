@@ -36,16 +36,15 @@ public class AnimalFactResource {
 
 
 
-    @Path("facthistory/save")
+    @Path("facthistory/save/{user}")
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    @RolesAllowed("user")
-    public Response saveFactToHistory(String factDTO){
-        String thisuser = securityContext.getUserPrincipal().getName();
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response saveFactToHistory(@PathParam("user") String user,String factDTO){
         AnimalFactDTO animalFactDTO = GSON.fromJson(factDTO,AnimalFactDTO.class);
-        FACADE.addFactToHistory(thisuser, animalFactDTO);
+        FACADE.addFactToHistory(user, animalFactDTO);
 
-        return Response.ok().build();
+        return Response.ok().entity(animalFactDTO).build();
     }
 
 }

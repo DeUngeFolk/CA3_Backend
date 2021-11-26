@@ -3,6 +3,7 @@ package facades;
 import dtos.AnimalFactDTO;
 import entities.AnimalFact;
 import entities.User;
+import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,8 +11,10 @@ import javax.persistence.EntityManagerFactory;
 public class AnimalFactFacade {
 
     private static AnimalFactFacade instance;
-    private static UserFacade userFacade;
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private static final UserFacade FACADE =  UserFacade.getUserFacade(EMF);
     private static EntityManagerFactory emf;
+
 
     private AnimalFactFacade() {
     }
@@ -32,14 +35,16 @@ public class AnimalFactFacade {
     public void addFactToHistory(String username, AnimalFactDTO animalFactDTO) {
 
         AnimalFact animalFact = new AnimalFact(animalFactDTO);
-        User user = new User(userFacade.getUser(username));
+        User user = new User(FACADE.getUser(username));
         user.addFactToHistory(animalFact);
 
         EntityManager em = emf.createEntityManager();
 
+        System.out.println(user.toString());
+
         try {
             em.getTransaction().begin();
-            em.persist(user);
+            em.merge(user);
             em.getTransaction().commit();
         } finally {
             em.close();

@@ -2,9 +2,12 @@ package entities;
 
 
 import dtos.AnimalTypeDTO;
+import org.eclipse.persistence.internal.oxm.schema.model.All;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "AnimalType.deleteAllRows", query = "DELETE from AnimalType")
@@ -15,6 +18,9 @@ public class AnimalType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @OneToMany(mappedBy = "animalType", cascade = CascadeType.MERGE )
+    private List<AnimalFact> animalFacts = new ArrayList<>();
 
     public AnimalType() {
     }
@@ -56,5 +62,19 @@ public class AnimalType implements Serializable {
 
     public void setType(String type) {
         type = type;
+    }
+
+    public List<AnimalFact> getAnimalFacts() {
+        return animalFacts;
+    }
+
+    public void setAnimalFacts(List<AnimalFact> animalFacts) {
+        this.animalFacts = animalFacts;
+    }
+
+    public void addFact(AnimalFact animalFact) {
+
+        animalFacts.add(animalFact);
+
     }
 }

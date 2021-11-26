@@ -32,7 +32,7 @@ public class User implements Serializable {
 
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<AnimalFact> factHistory = new ArrayList<>();
 
     public List<String> getRolesAsStrings() {
@@ -110,5 +110,15 @@ public class User implements Serializable {
 
         factHistory.add(animalFact);
 
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userPass='" + userPass + '\'' +
+                ", roleList=" + roleList +
+                ", factHistory=" + factHistory +
+                '}';
     }
 }
