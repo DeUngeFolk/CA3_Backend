@@ -1,8 +1,11 @@
 package entities;
 
 
+import dtos.AnimalFactDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "Animal.deleteAllRows", query = "DELETE FROM AnimalFact ")
@@ -33,9 +36,19 @@ public class AnimalFact implements Serializable {
     @ManyToOne
     private AnimalType animalType;
 
+    @ManyToMany(mappedBy = "factHistory")
+    private List<User> userList;
+
     public AnimalFact(String fact) {
         this.fact = fact;
         this.animalType = getAnimalType();
+    }
+
+    public AnimalFact(AnimalFactDTO animalFactDTO){
+        this.fact = animalFactDTO.getFact();
+        this.animalType = new AnimalType(animalFactDTO.getType());
+
+
     }
 
 
@@ -59,5 +72,13 @@ public class AnimalFact implements Serializable {
 
     public void setAnimalType(AnimalType animalType) {
         this.animalType = animalType;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

@@ -35,7 +35,7 @@ public class AnimalTypeFacade {
 
     public AnimalTypeDTO getByType(String type) {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<AnimalType> query = em.createQuery("SELECT a FROM AnimalType a WHERE a.Type = :type", AnimalType.class);
+        TypedQuery<AnimalType> query = em.createQuery("SELECT a FROM AnimalType a WHERE a.type = :type", AnimalType.class);
         query.setParameter("type", type);
         AnimalType animalType = query.getSingleResult();
         AnimalTypeDTO animalTypeDTO = new AnimalTypeDTO(animalType);

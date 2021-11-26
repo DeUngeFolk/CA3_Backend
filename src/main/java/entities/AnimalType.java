@@ -1,6 +1,8 @@
 package entities;
 
 
+import dtos.AnimalTypeDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,6 +19,15 @@ public class AnimalType implements Serializable {
     public AnimalType() {
     }
 
+    public AnimalType(AnimalTypeDTO animalTypeDTO) {
+
+        long longId = animalTypeDTO.getId();
+        this.id = longId;
+        this.type = animalTypeDTO.getType();
+
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -27,7 +38,6 @@ public class AnimalType implements Serializable {
 
     // edit below here.
     private String type;
-
 
 
     public AnimalType(Long id, String type) {

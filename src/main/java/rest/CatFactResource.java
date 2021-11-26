@@ -5,10 +5,9 @@ import com.google.gson.GsonBuilder;
 import facades.CatFactFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.concurrent.ExecutionException;
@@ -35,4 +34,8 @@ public class CatFactResource {
 
         return Response.ok().entity(GSON.toJson(FACADE.getCatFact())).build();
     }
+
+
+
+
 }
