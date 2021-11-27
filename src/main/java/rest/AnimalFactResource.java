@@ -40,11 +40,11 @@ public class AnimalFactResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response saveFactToHistory(@PathParam("user") String user,String factDTO){
+    public Response saveFactToHistory(@PathParam("user")String user, String factDTO){
         AnimalFactDTO animalFactDTO = GSON.fromJson(factDTO,AnimalFactDTO.class);
         FACADE.addFactToHistory(user, animalFactDTO);
 
-        return Response.ok().entity(animalFactDTO).build();
+        return Response.ok().entity(GSON.toJson(animalFactDTO)).build();
     }
 
 }
