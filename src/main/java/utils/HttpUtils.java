@@ -57,6 +57,14 @@ public class HttpUtils {
                 case "dogFactDTO":
                     return dogFactDTOFetch();
 
+                case "koalaFactDTO":
+
+                    return koalaFactDTOFetch();
+
+                case "foxFactDTO":
+
+                    return foxFactDTOFetch();
+
             }
         }
 
@@ -100,6 +108,42 @@ public class HttpUtils {
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("dog");
 
         AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, dogFactDTO.getDogFact());
+
+        return animalFactDTO;
+    }
+
+    public static AnimalFactDTO koalaFactDTOFetch() throws ExecutionException, InterruptedException {
+        ExecutorService es = Executors.newCachedThreadPool();
+
+        Future<KoalaFactDTO> koalaFactDTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://some-random-api.ml/facts/koala"), KoalaFactDTO.class)
+
+
+        );
+
+        KoalaFactDTO koalaFactDTO = new KoalaFactDTO(koalaFactDTOFuture.get());
+
+        AnimalTypeDTO typeDTO = new AnimalTypeDTO("koala");
+
+        AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, koalaFactDTO.getFact());
+
+        return animalFactDTO;
+    }
+
+    public static AnimalFactDTO foxFactDTOFetch() throws ExecutionException, InterruptedException {
+        ExecutorService es = Executors.newCachedThreadPool();
+
+        Future<FoxFactDTO> foxFactDTOFuture = es.submit(
+                () -> gson.fromJson(HttpUtils.fetchData("https://some-random-api.ml/facts/fox"), FoxFactDTO.class)
+
+
+        );
+
+        FoxFactDTO foxFactDTO = new FoxFactDTO(foxFactDTOFuture.get());
+
+        AnimalTypeDTO typeDTO = new AnimalTypeDTO("fox");
+
+        AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, foxFactDTO.getFact());
 
         return animalFactDTO;
     }

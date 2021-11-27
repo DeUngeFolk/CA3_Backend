@@ -6,8 +6,6 @@ public class CatFactDTO {
     private String catFact;
 
 
-
-
     public CatFactDTO(CatFactDTO catFactDTO) {
         this.catFact = catFactDTO.getData()[0];
     }
