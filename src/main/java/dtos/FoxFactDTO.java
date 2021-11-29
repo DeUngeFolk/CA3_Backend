@@ -2,30 +2,25 @@ package dtos;
 
 public class FoxFactDTO {
 
-    private String[] data;
-    private String foxFact;
+
+    private String fact;
+
 
     public FoxFactDTO(FoxFactDTO foxFactDTO) {
-        this.foxFact = foxFactDTO.getData()[0];
+        this.fact = foxFactDTO.getFact();
     }
 
     public FoxFactDTO(String foxFact) {
-        this.foxFact = foxFact;
+        this.fact = foxFact;
     }
 
     public String getFact() {
-        return foxFact;
+        return fact;
     }
 
     public void setFact(String fact) {
-        this.foxFact = fact;
+        this.fact = fact;
     }
 
-    public String[] getData() {
-        return data;
-    }
 
-    public void setData(String[] data) {
-        this.data = data;
-    }
 }

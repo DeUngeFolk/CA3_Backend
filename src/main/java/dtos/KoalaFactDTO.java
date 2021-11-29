@@ -2,30 +2,24 @@ package dtos;
 
 public class KoalaFactDTO {
 
-    private String[] data;
-    private String koalaFact;
+
+    private String fact;
+
 
     public KoalaFactDTO(KoalaFactDTO koalaFactDTO) {
-        this.koalaFact = koalaFactDTO.getData()[0];
+        this.fact = koalaFactDTO.getFact();
     }
 
     public KoalaFactDTO(String koalaFact) {
-        this.koalaFact = koalaFact;
+        this.fact = koalaFact;
     }
 
     public String getFact() {
-        return koalaFact;
+        return fact;
     }
 
     public void setFact(String fact) {
-        this.koalaFact = fact;
+        this.fact = fact;
     }
 
-    public String[] getData() {
-        return data;
-    }
-
-    public void setData(String[] data) {
-        this.data = data;
-    }
 }

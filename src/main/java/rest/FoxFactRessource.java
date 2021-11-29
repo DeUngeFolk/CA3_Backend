@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.concurrent.ExecutionException;
 
+@Path("foxfact")
 public class FoxFactRessource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
