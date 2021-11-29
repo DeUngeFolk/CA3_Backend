@@ -24,9 +24,6 @@ public class AnimalFactResource {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 
-    @Context
-    SecurityContext securityContext;
-
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String demo() {
