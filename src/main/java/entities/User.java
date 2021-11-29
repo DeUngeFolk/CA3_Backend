@@ -31,7 +31,9 @@ public class User implements Serializable {
     private List<Role> roleList = new ArrayList<>();
 
 
-
+    @JoinTable(name = "Facthistory", joinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+            @JoinColumn(name = "animalfact", referencedColumnName = "id")})
     @OneToMany(cascade = CascadeType.MERGE)
     private List<AnimalFact> factHistory = new ArrayList<>();
 
@@ -112,13 +114,4 @@ public class User implements Serializable {
 
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", userPass='" + userPass + '\'' +
-                ", roleList=" + roleList +
-                ", factHistory=" + factHistory +
-                '}';
-    }
 }

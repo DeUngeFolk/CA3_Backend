@@ -35,12 +35,10 @@ public class AnimalFactFacade {
     public void addFactToHistory(String username, AnimalFactDTO animalFactDTO) {
 
         AnimalFact animalFact = new AnimalFact(animalFactDTO);
-        User user = new User(FACADE.getUser(username));
+        User user = FACADE.getUser(username);
         user.addFactToHistory(animalFact);
-
         EntityManager em = emf.createEntityManager();
 
-        System.out.println(user.toString());
 
         try {
             em.getTransaction().begin();

@@ -30,10 +30,13 @@ public class AnimalFact implements Serializable {
 
     // Edit below here
 
+    @Column(length=1000)
     private String fact;
 
 
-    @ManyToOne
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private AnimalType animalType;
 
 
