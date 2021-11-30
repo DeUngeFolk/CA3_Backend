@@ -1,6 +1,10 @@
 package dtos;
 
 import entities.AnimalFact;
+import entities.RenameMe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalFactDTO {
 
@@ -15,6 +19,12 @@ public class AnimalFactDTO {
             this.id = animalFact.getId().intValue();
         type = new AnimalTypeDTO(animalFact.getAnimalType());
         this.fact = animalFact.getFact();
+    }
+
+    public static List<AnimalFactDTO> getDtos(List<AnimalFact> animalFactList){
+        List<AnimalFactDTO> afdtos = new ArrayList();
+        animalFactList.forEach(af->afdtos.add(new AnimalFactDTO(af)));
+        return afdtos;
     }
 
     public AnimalFactDTO(AnimalTypeDTO type, String fact) {

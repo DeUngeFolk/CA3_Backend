@@ -61,4 +61,6 @@ public class AnimalType implements Serializable {
         animalFacts.add(animalFact);
 
     }
+
+
 }

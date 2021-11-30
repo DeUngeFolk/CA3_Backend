@@ -1,9 +1,15 @@
 package facades;
 
+import entities.AnimalFact;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import security.errorhandling.AuthenticationException;
+
+import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -38,6 +44,7 @@ public class UserFacade {
                 throw new AuthenticationException("Invalid user name or password");
             }
         } finally {
+
             em.close();
         }
         return user;
@@ -48,11 +55,21 @@ public class UserFacade {
         User user;
         try {
             user = em.find(User.class, username);
+
+            Query query = em.createNativeQuery(
+                    "SELECT ANIMALFACT.* FROM ANIMALFACT, Facthistory where Facthistory.user_name = "
+                            + "'" + username + "' GROUP BY ID"
+                            ,AnimalFact.class);
+
+            List<AnimalFact> factHistory = query.getResultList();
+            user.setFactHistory(factHistory);
         } finally {
             em.close();
         }
 
         return user;
     }
+
+
 
 }

@@ -13,6 +13,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Path("animalfact")
@@ -78,6 +79,17 @@ public class AnimalFactResource {
         ANIMAL_FACT_FACADE.addFactToHistory(user, animalFactDTO);
 
         return Response.ok().entity(GSON.toJson(animalFactDTO)).build();
+    }
+
+    @Path("facthistory/{user}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response factHistory(@PathParam("user")String user){
+
+        List<AnimalFactDTO> animalFactDTOList = ANIMAL_FACT_FACADE.getFactHistory(user);
+        return Response.ok().entity( GSON.toJson(animalFactDTOList)).build();
+
+
     }
 
 }

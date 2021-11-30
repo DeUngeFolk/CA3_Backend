@@ -1,18 +1,20 @@
 package facades;
 
 import dtos.AnimalFactDTO;
+import dtos.AnimalTypeDTO;
 import entities.AnimalFact;
 import entities.User;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 public class AnimalFactFacade {
 
     private static AnimalFactFacade instance;
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
-    private static final UserFacade FACADE =  UserFacade.getUserFacade(EMF);
+    private static final UserFacade FACADE = UserFacade.getUserFacade(EMF);
     private static EntityManagerFactory emf;
 
 
@@ -48,6 +50,14 @@ public class AnimalFactFacade {
             em.close();
         }
 
+
+    }
+
+    public List<AnimalFactDTO> getFactHistory(String username) {
+
+        List<AnimalFactDTO> animalFactDTOList =  AnimalFactDTO.getDtos(FACADE.getUser(username).getFactHistory());
+
+        return animalFactDTOList;
 
 
     }

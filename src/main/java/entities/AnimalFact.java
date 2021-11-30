@@ -35,11 +35,8 @@ public class AnimalFact implements Serializable {
 
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     private AnimalType animalType;
-
-
 
 
 

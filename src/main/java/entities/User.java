@@ -30,13 +30,6 @@ public class User implements Serializable {
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
 
-
-    @JoinTable(name = "Facthistory", joinColumns = {
-            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-            @JoinColumn(name = "animalfact", referencedColumnName = "id")})
-    @OneToMany(cascade = CascadeType.MERGE)
-    private List<AnimalFact> factHistory = new ArrayList<>();
-
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;
@@ -47,6 +40,19 @@ public class User implements Serializable {
         });
         return rolesAsStrings;
     }
+
+    @JoinTable(name = "Facthistory", joinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+            @JoinColumn(name = "animalfact", referencedColumnName = "id")})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private List<AnimalFact> factHistory;
+
+
+    public List<AnimalFact> getFactHistory() {
+        return factHistory;
+    }
+
+
 
     public User() {
     }
@@ -69,8 +75,14 @@ public class User implements Serializable {
         this.userName = user.getUserName();
         this.userPass = user.getUserPass();
 
+
     }
 
+    public User(String userName, String userPass, List<AnimalFact> factHistory) {
+        this.userName = userName;
+        this.userPass = userPass;
+        this.factHistory = factHistory;
+    }
 
     public String getUserName() {
         return userName;
@@ -100,9 +112,7 @@ public class User implements Serializable {
         roleList.add(userRole);
     }
 
-    public List<AnimalFact> getFactHistory() {
-        return factHistory;
-    }
+
 
     public void setFactHistory(List<AnimalFact> factHistory) {
         this.factHistory = factHistory;
@@ -114,4 +124,14 @@ public class User implements Serializable {
 
     }
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userPass='" + userPass + '\'' +
+                ", roleList=" + roleList +
+                ", factHistory=" + factHistory +
+                '}';
+    }
 }
