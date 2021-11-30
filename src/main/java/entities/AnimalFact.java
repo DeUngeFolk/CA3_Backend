@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@NamedQuery(name = "Animal.deleteAllRows", query = "DELETE FROM AnimalFact ")
+@NamedQuery(name = "AnimalFact.deleteAllRows", query = "DELETE FROM AnimalFact ")
 public class AnimalFact implements Serializable {
 
 
@@ -35,7 +35,7 @@ public class AnimalFact implements Serializable {
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private AnimalType animalType;
 
 
@@ -52,6 +52,10 @@ public class AnimalFact implements Serializable {
 
     }
 
+    public AnimalFact(String fact, AnimalType animalType) {
+        this.fact = fact;
+        this.animalType = animalType;
+    }
 
     public AnimalFact(Long id, String fact, AnimalType animalType) {
         this.id = id;

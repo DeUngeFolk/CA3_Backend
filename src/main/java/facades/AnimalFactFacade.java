@@ -5,10 +5,13 @@ import dtos.AnimalTypeDTO;
 import entities.AnimalFact;
 import entities.User;
 import utils.EMF_Creator;
+import utils.HttpUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AnimalFactFacade {
 
@@ -34,6 +37,22 @@ public class AnimalFactFacade {
 
     }
 
+    public long getAnimalFactCount() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            long animalFactCount = (long) em.createQuery("SELECT COUNT(af) FROM AnimalFact af").getSingleResult();
+            return animalFactCount;
+        } finally {
+            em.close();
+        }
+    }
+
+    public AnimalFactDTO getAnimalFact(String animal) throws ExecutionException, InterruptedException {
+        return HttpUtils.FetchSwitch(animal);
+
+
+    }
+
     public void addFactToHistory(String username, AnimalFactDTO animalFactDTO) {
 
         AnimalFact animalFact = new AnimalFact(animalFactDTO);
@@ -55,9 +74,22 @@ public class AnimalFactFacade {
 
     public List<AnimalFactDTO> getFactHistory(String username) {
 
-        List<AnimalFactDTO> animalFactDTOList =  AnimalFactDTO.getDtos(FACADE.getUser(username).getFactHistory());
+        EntityManager em = emf.createEntityManager();
 
-        return animalFactDTOList;
+        try {
+
+
+            Query query = em.createNativeQuery(
+                    "SELECT ANIMALFACT.* FROM ANIMALFACT, Facthistory where Facthistory.user_name = "
+                            + "'" + username + "' GROUP BY ID"
+                    , AnimalFact.class);
+
+            List<AnimalFact> factHistory = query.getResultList();
+            List<AnimalFactDTO> animalFactDTOList = AnimalFactDTO.getDtos(factHistory);
+            return animalFactDTOList;
+        } finally {
+            em.close();
+        }
 
 
     }

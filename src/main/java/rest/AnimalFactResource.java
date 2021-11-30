@@ -23,10 +23,6 @@ public class AnimalFactResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
     private static final AnimalFactFacade ANIMAL_FACT_FACADE =  AnimalFactFacade.getFacadeExample(EMF);
-    private static final DogFactFacade DOG_FACT_FACADE =  DogFactFacade.getFacadeExample(EMF);
-    private static final FoxFactFacade FOX_FACT_FACADE =  FoxFactFacade.getFacadeExample(EMF);
-    private static final KoalaFactFacade KOALA_FACT_FACADE =  KoalaFactFacade.getFacadeExample(EMF);
-    private static final CatFactFacade CAT_FACT_FACADE =  CatFactFacade.getFacadeExample(EMF);
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -43,7 +39,7 @@ public class AnimalFactResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getDogFact() throws ExecutionException, InterruptedException {
 
-        return Response.ok().entity(GSON.toJson(DOG_FACT_FACADE.getDogFact())).build();
+        return Response.ok().entity(GSON.toJson(ANIMAL_FACT_FACADE.getAnimalFact("dog"))).build();
     }
 
     @Path("fox")
@@ -51,7 +47,7 @@ public class AnimalFactResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getFoxFact() throws ExecutionException, InterruptedException {
 
-        return Response.ok().entity(GSON.toJson(FOX_FACT_FACADE.getFoxFact())).build();
+      return Response.ok().entity(GSON.toJson(ANIMAL_FACT_FACADE.getAnimalFact("fox"))).build();
     }
 
     @Path("koala")
@@ -59,7 +55,7 @@ public class AnimalFactResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getKoalaFact() throws ExecutionException, InterruptedException {
 
-        return Response.ok().entity(GSON.toJson(KOALA_FACT_FACADE.getKoalaFact())).build();
+        return Response.ok().entity(GSON.toJson(ANIMAL_FACT_FACADE.getAnimalFact("koala"))).build();
     }
 
     @Path("cat")
@@ -67,7 +63,7 @@ public class AnimalFactResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getCatFact() throws ExecutionException, InterruptedException {
 
-        return Response.ok().entity(GSON.toJson(CAT_FACT_FACADE.getCatFact())).build();
+        return Response.ok().entity(GSON.toJson(ANIMAL_FACT_FACADE.getAnimalFact("cat"))).build();
     }
 
     @Path("facthistory/save/{user}")

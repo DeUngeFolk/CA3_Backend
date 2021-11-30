@@ -2,17 +2,11 @@ package utils;
 
 import com.google.gson.Gson;
 import dtos.*;
-import entities.AnimalFact;
-import entities.AnimalType;
-import facades.AnimalTypeFacade;
 
-import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -43,25 +37,25 @@ public class HttpUtils {
 
     // this Method acts as a switch for the different fetches we want to make, it can return a list containing any type of DTO.
 
-    public static AnimalFactDTO FetchSwitch(String DTO) throws ExecutionException, InterruptedException {
+    public static AnimalFactDTO FetchSwitch(String animal) throws ExecutionException, InterruptedException {
 
-        if (DTO != null) {
-            switch (DTO) {
+        if (animal != null) {
+            switch (animal) {
 
                 // use the first case in the switch as a template for additional switches you may want to add.
 
-                case "catFactDTO":
+                case "cat":
 
                     return catFactDTOFetch();
 
-                case "dogFactDTO":
+                case "dog":
                     return dogFactDTOFetch();
 
-                case "koalaFactDTO":
+                case "koala":
 
                     return koalaFactDTOFetch();
 
-                case "foxFactDTO":
+                case "fox":
 
                     return foxFactDTOFetch();
 

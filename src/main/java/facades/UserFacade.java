@@ -56,13 +56,6 @@ public class UserFacade {
         try {
             user = em.find(User.class, username);
 
-            Query query = em.createNativeQuery(
-                    "SELECT ANIMALFACT.* FROM ANIMALFACT, Facthistory where Facthistory.user_name = "
-                            + "'" + username + "' GROUP BY ID"
-                            ,AnimalFact.class);
-
-            List<AnimalFact> factHistory = query.getResultList();
-            user.setFactHistory(factHistory);
         } finally {
             em.close();
         }
