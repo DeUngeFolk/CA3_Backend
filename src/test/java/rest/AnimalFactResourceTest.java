@@ -10,10 +10,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -24,7 +21,7 @@ import java.net.URI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 //Uncomment the line below, to temporarily disable this test
-//@Disabled
+@Disabled
 
 public class AnimalFactResourceTest {
 
