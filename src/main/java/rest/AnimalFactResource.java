@@ -29,9 +29,18 @@ public class AnimalFactResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String demo() {
+    public String animalFactCount() {
         return "{\"msg\":\"Hello World\"}";
 
+    }
+
+    @Path("count")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getRenameMeCount() {
+        long count = ANIMAL_FACT_FACADE.getAnimalFactCount();
+        //System.out.println("--------------->"+count);
+        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
 
     @Path("dog")
