@@ -27,10 +27,10 @@ public class CatFactResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-    @Path("fact")
+    @Path("cat")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getFact() throws ExecutionException, InterruptedException {
+    public Response getCatFact() throws ExecutionException, InterruptedException {
 
         return Response.ok().entity(GSON.toJson(FACADE.getCatFact())).build();
     }

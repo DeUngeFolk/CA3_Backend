@@ -29,7 +29,7 @@ public class DogFactResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-    @Path("fact")
+    @Path("dog")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getFact() throws ExecutionException, InterruptedException {

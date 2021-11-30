@@ -23,11 +23,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(cors.CorsFilter.class);
-        resources.add(rest.CatFactResource.class);
-        resources.add(rest.DogFactResource.class);
         resources.add(rest.AnimalFactResource.class);
-        resources.add(rest.KoalaFactRessource.class);
-        resources.add(rest.FoxFactRessource.class);
         resources.add(errorhandling.API_ExceptionMapper.class);
         resources.add(errorhandling.GenericExceptionMapper.class);
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);

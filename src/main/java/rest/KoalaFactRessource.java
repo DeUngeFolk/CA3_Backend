@@ -27,10 +27,10 @@ public class KoalaFactRessource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-    @Path("fact")
+    @Path("koala")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getFact() throws ExecutionException, InterruptedException {
+    public Response getKoalaFact() throws ExecutionException, InterruptedException {
 
         return Response.ok().entity(GSON.toJson(FACADE.getKoalaFact())).build();
     }
