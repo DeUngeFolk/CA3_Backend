@@ -2,8 +2,6 @@ package rest;
 
 import dtos.AnimalFactDTO;
 import dtos.AnimalTypeDTO;
-import entities.AnimalFact;
-import entities.RenameMe;
 import entities.User;
 import facades.AnimalFactFacade;
 import io.restassured.RestAssured;
