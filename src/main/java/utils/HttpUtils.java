@@ -78,13 +78,14 @@ public class HttpUtils {
         );
 
 
+
         CatFactDTO catFactDTO = new CatFactDTO(catFactDTOFuture.get());
 
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("cat");
 
         AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, catFactDTO.getFact());
 
-
+        es.shutdown();
         return animalFactDTO;
     }
 
@@ -102,7 +103,7 @@ public class HttpUtils {
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("dog");
 
         AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, dogFactDTO.getDogFact());
-
+        es.shutdown();
         return animalFactDTO;
     }
 
@@ -120,7 +121,7 @@ public class HttpUtils {
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("koala");
 
         AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, koalaFactDTO.getFact());
-
+        es.shutdown();
         return animalFactDTO;
     }
 
@@ -138,7 +139,7 @@ public class HttpUtils {
         AnimalTypeDTO typeDTO = new AnimalTypeDTO("fox");
 
         AnimalFactDTO animalFactDTO = new AnimalFactDTO(typeDTO, foxFactDTO.getFact());
-
+        es.shutdown();
         return animalFactDTO;
     }
 
