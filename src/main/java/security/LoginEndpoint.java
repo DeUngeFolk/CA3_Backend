@@ -55,6 +55,7 @@ public class LoginEndpoint {
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);
             responseJson.addProperty("token", token);
+            responseJson.addProperty("success", Boolean.TRUE);
             return Response.ok(new Gson().toJson(responseJson)).build();
 
         } catch (JOSEException | AuthenticationException ex) {
@@ -63,7 +64,9 @@ public class LoginEndpoint {
             }
             Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        throw new AuthenticationException("Invalid username or password! Please try again");
+        JsonObject responseJson = new JsonObject();
+        responseJson.addProperty("success", Boolean.FALSE);
+        return Response.ok(new Gson().toJson(responseJson)).build();
     }
 
     private String createToken(String userName, List<String> roles) throws JOSEException {
