@@ -80,7 +80,7 @@ public class AnimalFactResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getRandomFact() throws ExecutionException, InterruptedException {
 
-        return Response.ok().entity(GSON.toJson(ANIMAL_FACT_FACADE.getAnimalFact("cat"))).build();
+        return Response.ok().entity(GSON.toJson(ANIMAL_FACT_FACADE.getAnimalFact("random"))).build();
     }
 
     @Path("facthistory/save/{user}")

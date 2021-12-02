@@ -49,9 +49,8 @@ public class AnimalFactFacade {
 
     public AnimalFactDTO getAnimalFact(String animal) throws ExecutionException, InterruptedException {
         return HttpUtils.FetchSwitch(animal);
-
-
     }
+
 
     public void addFactToHistory(String username, AnimalFactDTO animalFactDTO) {
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -58,6 +59,8 @@ public class HttpUtils {
                 case "fox":
 
                     return foxFactDTOFetch();
+                case "random":
+                    return randomAnimalFetch();
 
             }
         }
@@ -66,6 +69,35 @@ public class HttpUtils {
     }
 
     // down here you will make the methods for the individual fetch methods that will be called in the switch.
+
+    public static AnimalFactDTO randomAnimalFetch() throws ExecutionException, InterruptedException {
+        int min = 1;
+        int max = 4;
+        int random = (int) Math.floor(Math.random() * (max - min + 1) + min);
+
+        switch (random) {
+
+            case 1:
+
+                return catFactDTOFetch();
+
+            case 2:
+                return dogFactDTOFetch();
+
+            case 3:
+
+                return koalaFactDTOFetch();
+
+            case 4:
+
+                return foxFactDTOFetch();
+
+
+        }
+
+
+        return null;
+    }
 
     public static AnimalFactDTO catFactDTOFetch() throws ExecutionException, InterruptedException {
         ExecutorService es = Executors.newCachedThreadPool();
@@ -76,7 +108,6 @@ public class HttpUtils {
                 () -> gson.fromJson(HttpUtils.fetchData("https://meowfacts.herokuapp.com/"), CatFactDTO.class)
 
         );
-
 
 
         CatFactDTO catFactDTO = new CatFactDTO(catFactDTOFuture.get());
