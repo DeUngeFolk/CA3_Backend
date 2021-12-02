@@ -11,21 +11,27 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import facades.UserFacade;
+
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import entities.User;
 import errorhandling.API_Exception;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import security.errorhandling.AuthenticationException;
 import errorhandling.GenericExceptionMapper;
+
 import javax.persistence.EntityManagerFactory;
+
 import utils.EMF_Creator;
 
 @Path("login")
@@ -46,7 +52,7 @@ public class LoginEndpoint {
             username = json.get("username").getAsString();
             password = json.get("password").getAsString();
         } catch (Exception e) {
-           throw new API_Exception("Malformed JSON Suplied",400,e);
+            throw new API_Exception("Malformed JSON Suplied", 400, e);
         }
 
         try {
@@ -59,12 +65,14 @@ public class LoginEndpoint {
             return Response.ok(new Gson().toJson(responseJson)).build();
 
         } catch (JOSEException | AuthenticationException ex) {
-            if (ex instanceof AuthenticationException) {
-                throw (AuthenticationException) ex;
-            }
-            Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("success", Boolean.FALSE);
+            if (ex instanceof AuthenticationException) {
+
+                return Response.ok(new Gson().toJson(responseJson)).build();
+            }
+            Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);
+
             return Response.ok(new Gson().toJson(responseJson)).build();
         }
 
