@@ -53,7 +53,25 @@ public class User implements Serializable {
         return factHistory;
     }
 
+    @JoinTable(name = "SavedFacts", joinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+            @JoinColumn(name = "animalfact", referencedColumnName = "id")})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private List<AnimalFact> savedFacts;
 
+    public List<AnimalFact> getSavedFacts() {
+        return savedFacts;
+    }
+
+    public void setSavedFacts(List<AnimalFact> savedFacts) {
+        this.savedFacts = savedFacts;
+    }
+
+    public void addFactToSavedFacts(AnimalFact animalFact){
+
+        savedFacts.add(animalFact);
+
+    }
 
     public User() {
     }

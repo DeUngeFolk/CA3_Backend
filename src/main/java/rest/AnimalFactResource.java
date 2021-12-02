@@ -105,4 +105,29 @@ public class AnimalFactResource {
 
     }
 
+
+    @Path("savefact/save/{user}")
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response saveFactToSavedFacts(@PathParam("user")String user, String factDTO){
+        AnimalFactDTO animalFactDTO = GSON.fromJson(factDTO,AnimalFactDTO.class);
+        ANIMAL_FACT_FACADE.addFactToSavedFacts(user, animalFactDTO);
+
+        return Response.ok().entity(GSON.toJson(animalFactDTO)).build();
+    }
+
+    @Path("savefact/{user}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response savedFacts(@PathParam("user")String user){
+
+        List<AnimalFactDTO> animalFactDTOList = ANIMAL_FACT_FACADE.getSavedFacts(user);
+        return Response.ok().entity( GSON.toJson(animalFactDTOList)).build();
+
+
+    }
+
+
+
 }

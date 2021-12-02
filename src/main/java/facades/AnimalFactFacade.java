@@ -72,6 +72,23 @@ public class AnimalFactFacade {
 
     }
 
+    public void addFactToSavedFacts(String username, AnimalFactDTO animalFactDTO) {
+        AnimalFact animalFact = new AnimalFact(animalFactDTO);
+        User user = FACADE.getUser(username);
+        user.addFactToSavedFacts(animalFact);
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+
+    }
+
     public List<AnimalFactDTO> getFactHistory(String username) {
 
         EntityManager em = emf.createEntityManager();
@@ -92,6 +109,22 @@ public class AnimalFactFacade {
         }
 
 
+    }
+
+    public List<AnimalFactDTO> getSavedFacts(String username) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            Query query = em.createNativeQuery("SELECT ANIMALFACT.* FROM ANIMALFACT, SavedFacts WHERE SavedFacts.user_name = "
+                            + "'" + username + "' GROUP BY ID"
+                    , AnimalFact.class);
+            List<AnimalFact> savedFacts = query.getResultList();
+            List<AnimalFactDTO> animalFactDTOList = AnimalFactDTO.getDtos(savedFacts);
+            return animalFactDTOList;
+        } finally {
+            em.close();
+        }
     }
 
 }
