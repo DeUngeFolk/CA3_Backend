@@ -63,10 +63,12 @@ public class LoginEndpoint {
                 throw (AuthenticationException) ex;
             }
             Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("success", Boolean.FALSE);
+            return Response.ok(new Gson().toJson(responseJson)).build();
         }
-        JsonObject responseJson = new JsonObject();
-        responseJson.addProperty("success", Boolean.FALSE);
-        return Response.ok(new Gson().toJson(responseJson)).build();
+
+
     }
 
     private String createToken(String userName, List<String> roles) throws JOSEException {
