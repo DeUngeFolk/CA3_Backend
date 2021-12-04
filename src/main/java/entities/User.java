@@ -42,10 +42,8 @@ public class User implements Serializable {
         return rolesAsStrings;
     }
 
-    @JoinTable(name = "Facthistory", joinColumns = {
-            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-            @JoinColumn(name = "animalfact", referencedColumnName = "id")})
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "factHistory")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<AnimalFact> factHistory;
 
 
@@ -53,10 +51,8 @@ public class User implements Serializable {
         return factHistory;
     }
 
-    @JoinTable(name = "SavedFacts", joinColumns = {
-            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-            @JoinColumn(name = "animalfact", referencedColumnName = "id")})
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "savedFacts")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<AnimalFact> savedFacts;
 
     public List<AnimalFact> getSavedFacts() {
@@ -67,7 +63,7 @@ public class User implements Serializable {
         this.savedFacts = savedFacts;
     }
 
-    public void addFactToSavedFacts(AnimalFact animalFact){
+    public void addFactToSavedFacts(AnimalFact animalFact) {
 
         savedFacts.add(animalFact);
 
@@ -130,7 +126,6 @@ public class User implements Serializable {
     public void addRole(Role userRole) {
         roleList.add(userRole);
     }
-
 
 
     public void setFactHistory(List<AnimalFact> factHistory) {

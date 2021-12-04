@@ -92,16 +92,13 @@ public class AnimalFactFacade {
 
         EntityManager em = emf.createEntityManager();
 
+
         try {
 
+            User user = em.find(User.class, username);
+            user.getFactHistory();
+            List<AnimalFactDTO> animalFactDTOList = AnimalFactDTO.getDtos(user.getFactHistory());
 
-            Query query = em.createNativeQuery(
-                    "SELECT ANIMALFACT.* FROM ANIMALFACT, Facthistory where Facthistory.user_name = "
-                            + "'" + username + "' GROUP BY ID"
-                    , AnimalFact.class);
-
-            List<AnimalFact> factHistory = query.getResultList();
-            List<AnimalFactDTO> animalFactDTOList = AnimalFactDTO.getDtos(factHistory);
             return animalFactDTOList;
         } finally {
             em.close();
@@ -114,12 +111,12 @@ public class AnimalFactFacade {
 
         EntityManager em = emf.createEntityManager();
 
+
         try {
-            Query query = em.createNativeQuery("SELECT ANIMALFACT.* FROM ANIMALFACT, SavedFacts WHERE SavedFacts.user_name = "
-                            + "'" + username + "' GROUP BY ID"
-                    , AnimalFact.class);
-            List<AnimalFact> savedFacts = query.getResultList();
-            List<AnimalFactDTO> animalFactDTOList = AnimalFactDTO.getDtos(savedFacts);
+            User user = em.find(User.class, username);
+            user.getFactHistory();
+            List<AnimalFactDTO> animalFactDTOList = AnimalFactDTO.getDtos(user.getSavedFacts());
+
             return animalFactDTOList;
         } finally {
             em.close();
